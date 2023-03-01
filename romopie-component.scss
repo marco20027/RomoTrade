@@ -1,0 +1,20 @@
+.container {
+    height: 100px;
+    position: relative;
+  }
+  
+  .vertical-center {
+    margin-left: 10%;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .modalCustomLarge{
+    padding: 0px !important;
+    width: 50rem !important;
+  }
+  .table{
+    text-align: center;
+    border: 4px solid;
+  }

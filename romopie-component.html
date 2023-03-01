@@ -1,0 +1,43 @@
+<div class="row col-24 mt-3 pl-5 justify-content-around">    
+<wimtwidget
+    [mainContentType]="'CHART'" 
+    [title] = "'Romo Trade'"
+    [configuration]="chartConfiguration" 
+    [mainData]="mainData" 
+    [secondaryFilters]="secondaryFilters" 
+    [timestamp]="timestamp"
+    [autoRefresh]="autoRefresh"
+    (wimtWidgetEvt)="wimtEvt($event)">
+</wimtwidget>
+<nbp-modal [nbpTitle]="" [(nbpOpened)]="showDrilldown" class="modalCustomMedium">
+    <div class="btn-group container">
+        <div class="vertical-center">
+        <nbp-button id="MessaggiBloccati" [nbpLabel] = "'Messaggi Bloccati'" [nbpStyle]="_nbpStyle.PRIMARY"  ></nbp-button>
+        <nbp-button id="OperazioniBloccate" [nbpLabel] = "'Operazioni Bloccate'" [nbpStyle]="_nbpStyle.PRIMARY" ></nbp-button>
+        <nbp-button id="Terminate" [nbpLabel]= "'Terminate'" [nbpStyle] = "_nbpStyle.PRIMARY"></nbp-button>
+        <nbp-button [nbpLabel]= "'Chiudi'" ></nbp-button>
+        </div>
+      </div>
+<wimtwidget *ngIf="showDrilldown"
+    [mainContentType]="'CHART'" 
+    [configuration]="chartConfigurationFirstDrillDown"
+    [mainData] ="mainDataFirstDrillDown"
+    (wimtWidgetEvt)="wimtEvt({action:'sub__'+$event.action, el:$event.el?$event.el:$event.value})"
+    >
+  </wimtwidget>
+  <table id="table" class="mainTable table" [ngStyle]="{'border': '4px solid' + colors }">
+      <tr *ngFor="let item of table">
+        <th>{{item.key}}</th>
+        <td>{{item.value}}</td>
+    </tr>
+</table>
+  </nbp-modal>
+  <nbp-modal [nbpTitle]="" [(nbpOpened)]="showDrilldownSecondLevel" [nbpSize] = "_nbpSize.LG"  class="modalCustomLarge">
+    <drilldown-content [fields] = "configurationTableSecondDrillDown" [data] = "secondDrillDownData" [totalRecords] = "secondDrillDownDataTotalRecords"
+    [rowNumber]="secondDrilldownRowNumber"
+    [paginated]="true" [sortable]="true" [inputEvt]="drilldownEvt.asObservable()">
+    </drilldown-content>
+    </nbp-modal>
+    </div>
+
+  
